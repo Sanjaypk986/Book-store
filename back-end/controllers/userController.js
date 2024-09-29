@@ -88,9 +88,6 @@ export const loginUser = async (req, res) => {
       secure: true,
       sameSite: "none",
     });
-    console.log(req.cookies);
-    
-    
 
     res
       .status(200)
