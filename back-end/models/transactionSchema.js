@@ -22,6 +22,11 @@ const transactionSchema = new mongoose.Schema({
   rent: {
     type: Number,
   },
+  status: {
+    type: String,
+    enum: ['issued', 'returned'],
+    required: true,
+  },
 });
 
 //model creation
