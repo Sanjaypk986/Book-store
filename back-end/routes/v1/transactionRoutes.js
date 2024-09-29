@@ -1,6 +1,5 @@
 import express from 'express'
 import { bookHistory, bookIssuedDate, bookRentHistory, bookReturnedDate, booksIssuedInDateRange, issuedBooks } from '../../controllers/transactionController.js'
-import { authuser } from '../../middlewares/authUser.js'
 
 const router = express.Router()
 
