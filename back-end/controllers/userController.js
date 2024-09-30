@@ -133,23 +133,26 @@ export const checkUser = async (req, res, next) => {
 
 // get all users
 export const getallUsers = async (req, res) => {
-    try {
-  
-      // find user
-      const users = await User.find({});
-      if (!users.length) {
-        return res
-          .status(400)
-          .json({ success: false, message: "Users does not exists" });
-      }
-
-      res
-        .status(200)
-        .json({ success: true, message: "Users data fetched successfull", data: users });
-    } catch (error) {
-      res.status(error.status || 500).json({
-        success: false,
-        message: error.message || "Internal server error",
-      });
+  try {
+    // find user
+    const users = await User.find({});
+    if (!users.length) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Users does not exists" });
     }
-  };
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Users data fetched successfull",
+        data: users,
+      });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
+};

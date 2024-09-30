@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import { User } from "../models/userModel.js";
 
 export const authuser = async (req, res, next) => {
-    
   try {
     // destructure token from cookies
     const { token } = req.cookies;

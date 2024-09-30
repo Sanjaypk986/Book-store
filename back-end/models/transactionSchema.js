@@ -24,7 +24,7 @@ const transactionSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['issued', 'returned'],
+    enum: ["issued", "returned"],
     required: true,
   },
 });

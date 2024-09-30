@@ -16,8 +16,9 @@ const bookSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-        type: String,
-        default: "https://www.creativefabrica.com/wp-content/uploads/2023/10/22/Vintage-Books-Digital-Graphic-82233438-1.png",
+      type: String,
+      default:
+        "https://www.creativefabrica.com/wp-content/uploads/2023/10/22/Vintage-Books-Digital-Graphic-82233438-1.png",
     },
   },
   { timestamps: true }
