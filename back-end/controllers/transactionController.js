@@ -345,3 +345,101 @@ export const booksIssuedInDateRange = async (req, res) => {
     });
   }
 };
+
+export const allTransactions = async (req, res) => {
+  try {
+    const transactions = await Transaction.find({});
+    if (!transactions || transactions.length == 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "transactions not available" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Transactions filtered by dates",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
+};
+
+export const filterByDate = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        success: false,
+        message: "start date and end date are required",
+      });
+    }
+
+    // Convert dates
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const transactions = await Transaction.find({
+      issueDate: { $gte: start, $lt: end },
+    });
+    if (transactions.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "transactions not available" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Transactions filtered by dates",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
+};
+
+export const filterByDateAggrigate = async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+
+    if (!startDate || !endDate) {
+      return res.status(400).json({
+        success: false,
+        message: "start date and end date are required",
+      });
+    }
+
+    // Convert dates
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const transactions = await Transaction.aggregate([
+      {
+        $match: {
+          //filter document
+          issueDate: { $gte: start, $lt: end },
+        },
+      },
+    ]);
+    if (transactions.length === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "transactions not available" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Transactions filtered by dates",
+      data: transactions,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message || "Internal server error",
+    });
+  }
+};
